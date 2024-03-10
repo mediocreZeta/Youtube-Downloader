@@ -42,9 +42,9 @@ class DownloadingContentAdapter(
         }
 
         private fun bindAdditionalFormat(video: YtVideo) {
-            val downloadFormat = video  .downloadFormat!!
-            with(binding.downloadingAdditionalFormat){
-                tvFilesize .text = downloadFormat.fileSize
+            val downloadFormat = video.downloadFormat!!
+            with(binding.downloadingAdditionalFormat) {
+                tvFilesize.text = downloadFormat.fileSize
                 tvExtensionType.text = downloadFormat.externalType
                 tvQuality.text = downloadFormat.formatNote
             }
@@ -93,6 +93,7 @@ class DownloadingContentAdapter(
                 R.string.download_progress,
                 percentage
             )
+            binding.progressBar.progress = percentage.toInt()
         }
         val descriptionCallback = { description: String ->
             binding.downloadingAdditionalFormat.tvDownloadProgressInfo.text = description

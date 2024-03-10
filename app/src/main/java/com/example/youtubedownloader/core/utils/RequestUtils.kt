@@ -5,6 +5,7 @@ import android.util.Log
 import com.example.youtubedownloader.core.data.local.entities.YtVideo
 import com.example.youtubedownloader.core.domain.enums.VideoAudioType
 import com.yausername.youtubedl_android.YoutubeDLRequest
+import java.io.File
 
 object RequestUtils {
     private var request: YoutubeDLRequest? = null
@@ -25,7 +26,7 @@ object RequestUtils {
         return request!!
     }
 
-    private  fun addThumbnailToCoverArts() {
+    private fun addThumbnailToCoverArts() {
         request?.addOption("--embed-thumbnail")
     }
 
@@ -71,7 +72,7 @@ object RequestUtils {
         val formatId = video.downloadFormat!!.formatId
         val container = video.downloadOption.container
         request?.addOption("-f", formatId)
-        handleAudioContainer(container)
+        handleAudioContainer(container, video.videoLocation)
     }
 
     private fun handleDefaultAudioType(video: YtVideo) {
@@ -79,7 +80,7 @@ object RequestUtils {
         val container = video.downloadOption.container
         Log.d(TAG, quality)
         request?.addOption("-f", quality)
-        handleAudioContainer(container)
+        handleAudioContainer(container, video.videoLocation)
     }
 
     private fun handleVideoContainer(container: String) {
@@ -90,8 +91,16 @@ object RequestUtils {
         )
     }
 
-    private fun handleAudioContainer(container: String) {
+    private fun handleAudioContainer(container: String, videoLocation: String) {
+        val config = File("$videoLocation/##ffmpegCrop.txt")
+        val configData =
+            "--ppa \"ffmpeg:-c:v mjpeg -vf crop=\\\"'if(gt(ih,iw),iw,ih)':'if(gt(iw,ih),ih,iw)'\\\"\""
+        config.writeText(configData)
+        request?.addOption("--convert-thumbnails", "jpg")
+        request?.addOption("--ppa", "ThumbnailsConvertor:-qmin 1 -q:v 1")
+        request?.addOption("--config", config.absolutePath)
         request?.addOption("--extract-audio")
+
         if (container == "DEFAULT") return
         request?.addOption(
             "--audio-format",

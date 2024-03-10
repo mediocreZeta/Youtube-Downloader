@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.SearchView.OnQueryTextListener
+import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
@@ -13,10 +14,12 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.youtubedownloader.R
 import com.example.youtubedownloader.core.data.local.entities.YtVideo
 import com.example.youtubedownloader.core.domain.Resource
 import com.example.youtubedownloader.custom.ResultVideoListener
 import com.example.youtubedownloader.databinding.FragmentFavoriteVideoBinding
+import com.example.youtubedownloader.format_selector.DownloadConfigurationBottomFragment
 import com.example.youtubedownloader.format_selector.viewmodel.ResultViewModel
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -96,7 +99,7 @@ class FavoriteVideoFragment : Fragment(), ResultVideoListener {
 
 
     override fun onClickCard(video: YtVideo) {
-        val onClickArgs =FavoriteVideoFragmentDirections
+        val onClickArgs = FavoriteVideoFragmentDirections
             .actionFavoriteVideoFragmentToVideoPlayerBottomFragment(video.videoId)
         findNavController().navigate(onClickArgs)
     }
@@ -107,14 +110,19 @@ class FavoriteVideoFragment : Fragment(), ResultVideoListener {
 
     override fun onClickDownload(video: YtVideo) {
         resultViewModel.addVideo(video)
-        val onDownloadArgs =
-            FavoriteVideoFragmentDirections
-                .actionFavoriteVideoFragmentToDownloadConfigurationBottomFragment(video.videoId)
-        findNavController().navigate(onDownloadArgs)
+        val bundle = bundleOf(Pair(DownloadConfigurationBottomFragment.TAG, video.videoId))
+        findNavController().navigate(
+            R.id.action_favoriteVideoFragment_to_nav_download_config,
+            bundle
+        )
     }
 
     override fun onDestroyView() {
         _binding = null
         super.onDestroyView()
+    }
+
+    companion object {
+        const val TAG = "Favorite_Fragment"
     }
 }

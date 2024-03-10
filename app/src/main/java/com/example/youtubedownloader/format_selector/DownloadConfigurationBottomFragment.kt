@@ -21,7 +21,11 @@ import com.example.youtubedownloader.core.utils.DefaultValueUtils
 import com.example.youtubedownloader.core.utils.FileUtils
 import com.example.youtubedownloader.custom.CustomDialog
 import com.example.youtubedownloader.databinding.DialogDownloadConfigBinding
+import com.example.youtubedownloader.favorite.FavoriteVideoFragment
 import com.example.youtubedownloader.format_selector.viewmodel.ResultViewModel
+import com.example.youtubedownloader.home.HomeFragment
+import com.example.youtubedownloader.home.HomeFragmentDirections
+import com.example.youtubedownloader.player.VideoPlayerBottomFragmentArgs
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.cancel
@@ -36,14 +40,12 @@ class DownloadConfigurationBottomFragment : BottomSheetDialogFragment() {
     private lateinit var binding: DialogDownloadConfigBinding
     private val resultViewModel by activityViewModel<ResultViewModel>()
     private val downloadConfigViewModel by viewModel<DownloadConfigViewModel>()
-    private val args: DownloadConfigurationBottomFragmentArgs by navArgs()
     private lateinit var customDialog: CustomDialog
     private var job: Job? = null
     private var fetchingVideoJob: Job? = null
     private val screen = MutableStateFlow(screenTag[0])
     private val videoId: String
-        get() = args.videoId
-            ?: throw IllegalArgumentException("Argument $VIDEO_ID required")
+        get() = requireArguments().getString(TAG)!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
         customDialog = CustomDialog(requireActivity())
@@ -56,7 +58,7 @@ class DownloadConfigurationBottomFragment : BottomSheetDialogFragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = DialogDownloadConfigBinding.inflate(inflater, container, false)
-        if(savedInstanceState == null){
+        if (savedInstanceState == null) {
             resultViewModel.getVideoInfo(videoId)
             configDefaultLocation()
         }
@@ -113,6 +115,7 @@ class DownloadConfigurationBottomFragment : BottomSheetDialogFragment() {
                 artist = binding.textfieldAuthorEdit.text.toString(),
             )
             downloadConfigViewModel.addToQueue(updatedVideo, type)
+            dismiss()
         }
     }
 
@@ -163,8 +166,8 @@ class DownloadConfigurationBottomFragment : BottomSheetDialogFragment() {
 
     private fun populateCardContent(downloadFormat: DownloadFormat) {
         val drawable = if (screen.value == screenTag[0]) {
-            AppCompatResources.getDrawable(requireContext(), R.drawable.icon_audio)
-        } else AppCompatResources.getDrawable(requireContext(), R.drawable.icon_video)
+            AppCompatResources.getDrawable(requireContext(), R.drawable.icon_video)
+        } else AppCompatResources.getDrawable(requireContext(), R.drawable.icon_audio)
 
         with(binding.sectionDownloadFormat.cardviewItem) {
             tvDownloadVideoFormat.text = requireContext().getString(
@@ -176,16 +179,18 @@ class DownloadConfigurationBottomFragment : BottomSheetDialogFragment() {
             tvFileSize.text = downloadFormat.fileSize
             iconType.setImageDrawable(drawable)
             card.setOnClickListener {
+                val type = screen.value.second
                 val onSelectFormatArgs =
                     DownloadConfigurationBottomFragmentDirections
                         .actionDownloadConfigurationBottomFragmentToFormatSelectorFragment(
-                            screen.value.second,
-                            videoId
+                            videoId,
+                            type
                         )
                 findNavController().navigate(onSelectFormatArgs)
             }
         }
     }
+
 
     private fun initialVideoCardValue(type: VideoAudioType) {
         val observedType = when (type) {
@@ -268,7 +273,7 @@ class DownloadConfigurationBottomFragment : BottomSheetDialogFragment() {
 
     companion object {
         private const val VIDEO_ID = "videoId"
-        const val TAG = "Download config"
+        const val TAG = "Download_Config"
         val screenTag = listOf(
             Pair(Screen.VIDEO, VideoAudioType.VIDEO),
             Pair(Screen.AUDIO, VideoAudioType.AUDIO)

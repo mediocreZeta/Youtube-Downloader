@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
@@ -22,6 +23,7 @@ import com.example.youtubedownloader.core.ui.PagingAdapter
 import com.example.youtubedownloader.core.ui.PagingLoadStateAdapter
 import com.example.youtubedownloader.custom.ResultVideoListener
 import com.example.youtubedownloader.databinding.FragmentHomeBinding
+import com.example.youtubedownloader.format_selector.DownloadConfigurationBottomFragment
 import com.example.youtubedownloader.format_selector.viewmodel.ResultViewModel
 import com.example.youtubedownloader.settings.SettingsActivity
 import kotlinx.coroutines.flow.collectLatest
@@ -138,7 +140,7 @@ class HomeFragment : Fragment(), ResultVideoListener {
 
     override fun onClickCard(video: YtVideo) {
         val onClickArgs =
-            HomeFragmentDirections.actionHomeFragmentToVideoPlayerBottomFragment2(video.videoId)
+            HomeFragmentDirections.actionHomeFragmentToVideoPlayerBottomFragment(video.videoId)
         findNavController().navigate(onClickArgs)
     }
 
@@ -148,14 +150,21 @@ class HomeFragment : Fragment(), ResultVideoListener {
 
     override fun onClickDownload(video: YtVideo) {
         resultViewModel.addVideo(video)
-        val onDownloadArgs =
-            HomeFragmentDirections
-                .actionHomeFragmentToDownloadConfigurationBottomFragment(video.videoId)
-        findNavController().navigate(onDownloadArgs)
+        val bundle = bundleOf(
+            Pair(DownloadConfigurationBottomFragment.TAG, video.videoId),
+        )
+        findNavController().navigate(
+            R.id.action_homeFragment_to_nav_download_config,
+            bundle
+        )
     }
 
     override fun onDestroyView() {
         _binding = null
         super.onDestroyView()
+    }
+
+    companion object {
+        const val TAG = "Home_Fragment"
     }
 }

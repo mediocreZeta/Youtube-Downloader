@@ -38,7 +38,7 @@ class FormatSelectorFragment : BottomSheetDialogFragment(), FormatClickListener 
 
     private val args: FormatSelectorFragmentArgs by navArgs()
     private val contentId: String
-        get() = args.videoId
+        get() = args.id
 
     private val type: VideoAudioType
         get() = args.type

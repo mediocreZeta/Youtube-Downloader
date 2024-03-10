@@ -5,29 +5,17 @@
     android:id="@+id/nav_favorite"
     app:startDestination="@id/favoriteVideoFragment">
 
-    <dialog
-        android:id="@+id/downloadConfigurationBottomFragment"
-        android:name="com.example.youtubedownloader.format_selector.DownloadConfigurationBottomFragment"
-        android:label="DownloadConfigurationBottomFragment" >
-        <argument
-            android:name="videoId"
-            app:argType="string"
-            app:nullable="true" />
-        <action
-            android:id="@+id/action_downloadConfigurationBottomFragment_to_formatSelectorFragment"
-            app:destination="@id/formatSelectorFragment" />
-    </dialog>
     <fragment
         android:id="@+id/favoriteVideoFragment"
         android:name="com.example.youtubedownloader.favorite.FavoriteVideoFragment"
         android:label="Favorite"
         tools:layout="@layout/fragment_favorite_video" >
         <action
-            android:id="@+id/action_favoriteVideoFragment_to_downloadConfigurationBottomFragment"
-            app:destination="@id/downloadConfigurationBottomFragment" />
-        <action
             android:id="@+id/action_favoriteVideoFragment_to_videoPlayerBottomFragment"
             app:destination="@id/videoPlayerBottomFragment" />
+        <action
+            android:id="@+id/action_favoriteVideoFragment_to_nav_download_config"
+            app:destination="@id/nav_download_config" />
     </fragment>
     <dialog
         android:id="@+id/videoPlayerBottomFragment"
@@ -38,16 +26,5 @@
             app:argType="string"
             app:nullable="true" />
     </dialog>
-    <dialog
-        android:id="@+id/formatSelectorFragment"
-        android:name="com.example.youtubedownloader.format_selector.format.FormatSelectorFragment"
-        android:label="dialog_format_selector"
-        tools:layout="@layout/dialog_format_selector" >
-        <argument
-            android:name="type"
-            app:argType="com.example.youtubedownloader.core.domain.enums.VideoAudioType" />
-        <argument
-            android:name="videoId"
-            app:argType="string" />
-    </dialog>
+    <include app:graph="@navigation/nav_download_config" />
 </navigation>

@@ -31,12 +31,12 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="8dp"
-            app:selectionRequired="true"
             app:checkedButton="@id/btn_video"
+            app:layout_constraintEnd_toEndOf="@+id/tv_downloadFormat_title"
             app:layout_constraintHorizontal_weight="8"
-            app:layout_constraintEnd_toStartOf="@+id/textfield_container"
             app:layout_constraintStart_toStartOf="@+id/tv_downloadFormat_title"
             app:layout_constraintTop_toBottomOf="@id/tv_downloadFormat_title"
+            app:selectionRequired="true"
             app:singleSelection="true">
 
             <com.google.android.material.button.MaterialButton
@@ -58,16 +58,15 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textfield_container"
             style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense.ExposedDropdownMenu"
-            android:layout_width="0dp"
+            android:layout_width="142dp"
             android:layout_height="wrap_content"
             android:clickable="true"
             android:hint="@string/hint_container"
-            app:layout_constraintBottom_toBottomOf="@+id/toggle_button_group"
-            app:layout_constraintEnd_toEndOf="@+id/cardview_item"
-            android:layout_marginStart="16dp"
-            app:layout_constraintStart_toEndOf="@id/toggle_button_group"
-            app:layout_constraintHorizontal_weight="6"
-            app:layout_constraintTop_toTopOf="@id/toggle_button_group">
+            app:layout_constraintHorizontal_bias="0"
+            android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toEndOf="@+id/toggle_button_group"
+            app:layout_constraintStart_toStartOf="@+id/toggle_button_group"
+            app:layout_constraintTop_toBottomOf="@+id/toggle_button_group">
 
             <AutoCompleteTextView
                 android:id="@+id/textfield_container_edit"
@@ -82,14 +81,14 @@
 
         <include
             android:id="@+id/cardview_item"
-            android:layout_marginTop="8dp"
             layout="@layout/item_download_format"
             android:layout_width="match_parent"
+            android:layout_marginTop="8dp"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/toggle_button_group" />
+            app:layout_constraintTop_toBottomOf="@+id/textfield_container" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
