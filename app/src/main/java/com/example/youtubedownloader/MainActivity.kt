@@ -35,7 +35,9 @@ class MainActivity : AppCompatActivity() {
         }
         setContentView(binding.root)
 
-        downloadBadge = binding.navBottom.getOrCreateBadge(R.id.nav_finished)
+        downloadBadge = binding.navBottom.getOrCreateBadge(R.id.nav_finished).apply {
+            isVisible = false
+        }
         addDownloadedBadgeCount()
 
         val navHostFragment =
