@@ -18,7 +18,8 @@ There are things to improve on this project, even though this project is able to
 *  Add a Worker manager to let user to see download progress
 *  Add a notification when changing video
 *  Improve the video player especially on the design and the button functionality
-*  Add a search by id and also search history.
+*  Add a search by id and also search history
+*  Improve UI/UX
 
 #  Screenshots of the app
 <p float="left">
