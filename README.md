@@ -1,5 +1,5 @@
-# Description
-This is my first project that I published in Github. I created a Youtube-Downloader App which let the user to download video from youtube based on their format choice.  How this app works?. This app will get the video information based on search query of the user and show it to the user. User can download the video with the help of yt-dlp library.  Thanks to [yt-dlp-android](https://github.com/yausername/youtubedl-android), [yt-dlp](https://github.com/yt-dlp/yt-dlp), and [ytdlnis](https://github.com/deniscerri/ytdlnis) this project can be published.
+#  Description
+This is my first project that I published in Github. I created a Youtube-Downloader App which let the user to download video from youtube based on their format choice.<br /><br />How this app works? This app will get the video information based on search query of the user and show it to the user. User can download the video with the help of yt-dlp library.<br /><br />Thanks to [yt-dlp-android](https://github.com/yausername/youtubedl-android), [yt-dlp](https://github.com/yt-dlp/yt-dlp), and [ytdlnis](https://github.com/deniscerri/ytdlnis) this project can be finished.
 
 #  Implemented feature
 *  Search videos with query and pagination
@@ -9,10 +9,10 @@ This is my first project that I published in Github. I created a Youtube-Downloa
 *  List of queueing and current donwloading video
 *  List of downloaded video
 
-# Additional information
+#  Additional information
 In this project I also try to implement some concept like MVVM Pattern, a singleton pattern, also a bit of clean architecture (still not clean enough, especially in the presentation layer). 
 
-#Things to improve
+#  Things to improve
 There are things to improve on this project, even though this project is able to serve its purpose to download youtube video, I have yet to add many things. So here is the things that are going to be improved.
 *  Add a Worker manager to let user to see download progress
 *  Add a notification when changing video
