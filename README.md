@@ -11,6 +11,7 @@ This is my first project that I published in Github. I created a Youtube-Downloa
 
 #  Additional information
 In this project I also try to implement some concept like MVVM Pattern, a singleton pattern, also a bit of clean architecture (still not clean enough, especially in the presentation layer). 
+I also learn the reactive programming concept (mostly using flow library in kotlin), and how to utilize remote and local databases using library like retrofit and Room.
 
 #  Things to improve
 There are things to improve on this project, even though this project is able to serve its purpose to download youtube video, I have yet to add many things. So here is the things that are going to be improved.
@@ -18,3 +19,12 @@ There are things to improve on this project, even though this project is able to
 *  Add a notification when changing video
 *  Improve the video player especially on the design and the button functionality
 *  Add a search by id and also search history.
+
+#  Screenshots of the app
+<p float="left">
+  <img src="/home.png" width="100" />
+  <img src="/download_config.png" width="100" /> 
+  <img src="/downloading.png" width="100" />
+  <img src="/finished.png" width="100" />
+  <img src="/settings.png" width="100" />
+</p>
