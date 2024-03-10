@@ -1,7 +1,5 @@
 # Description
-This is my first project that I published in Github. I created a Youtube-Downloader App which let the user to download video from youtube based on their format choice. 
-On how it works, the app will get the video information based on search query of the user and show it to the user. User can download the video with the help of yt-dlp library.
-Thanks to [yt-dlp-android](https://github.com/yausername/youtubedl-android), [yt-dlp](https://github.com/yt-dlp/yt-dlp), and ytdlnis[https://github.com/deniscerri/ytdlnis] this project can be published.
+This is my first project that I published in Github. I created a Youtube-Downloader App which let the user to download video from youtube based on their format choice.  How this app works?. This app will get the video information based on search query of the user and show it to the user. User can download the video with the help of yt-dlp library.  Thanks to [yt-dlp-android](https://github.com/yausername/youtubedl-android), [yt-dlp](https://github.com/yt-dlp/yt-dlp), and [ytdlnis](https://github.com/deniscerri/ytdlnis) this project can be published.
 
 #  Implemented feature
 *  Search videos with query and pagination
